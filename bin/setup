@@ -2,6 +2,6 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-bundle install
-
-# Do any other automated setup that you need to do here
+rm -f .binstubs/*
+bundle install --binstubs .binstubs
+bundle package --all --quiet
