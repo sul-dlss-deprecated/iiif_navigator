@@ -14,7 +14,10 @@ module IIIF
       attr_accessor :limit_annolists
       attr_accessor :limit_openannos
 
+      attr_accessor :cache_enabled
+
       attr_accessor :redis
+      attr_accessor :redis_enabled
 
       def initialize
         @debug = env_boolean('DEBUG')
@@ -27,7 +30,8 @@ module IIIF
         @limit_openannos = ENV['ANNO_LIMIT_OPENANNOS'].to_i # 0 disables sampling
 
         # Persistence options (TODO: provide options for triple stores)
-        redis_init
+        self.cache_enabled = env_boolean('RACK_CACHE_ENABLED')
+        self.redis_enabled = env_boolean('REDIS_ENABLED')
       end
 
       # Utility method for sampling annotation arrays, using either linear or
@@ -48,6 +52,16 @@ module IIIF
         else
           array
         end
+      end
+
+      def cache_enabled=(bool)
+        @cache_enabled = bool
+        cache_init
+      end
+
+      def redis_enabled=(bool)
+        @redis_enabled = bool
+        redis_init
       end
 
 
@@ -85,8 +99,7 @@ module IIIF
         #JSON.parse(redis.get("foo"))
         @redis = nil
         @redis_url = nil
-        redis_enabled = env_boolean('REDIS_ENABLED')
-        if redis_enabled
+        if @redis_enabled
           @redis_url = ENV['REDIS_URL']
           require 'hiredis'
           require 'redis'
@@ -99,6 +112,38 @@ module IIIF
             @redis = Redis.new
             @redis.ping || puts('failed to init redis')
           end
+        end
+      end
+
+      def cache_init
+        if @cache_enabled
+          require 'restclient/components'
+          require 'rack/cache'
+          # RestClient.enable Rack::CommonLogger
+          RestClient.enable Rack::CommonLogger, STDOUT
+          # Enable the HTTP cache to store meta and entity data according
+          # to the env config values or the defaults given here.  See
+          # http://rtomayko.github.io/rack-cache/configuration for available options.
+          @cache_metastore = ENV['RACK_CACHE_METASTORE'] || 'file:tmp/cache/meta'
+          @cache_entitystore = ENV['RACK_CACHE_ENTITYSTORE'] || 'file:tmp/cache/body'
+          require 'dalli' if ((@cache_metastore =~ /memcache/) || (@cache_entitystore =~ /memcache/))
+          @cache_verbose = env_boolean('RACK_CACHE_VERBOSE')
+          RestClient.enable Rack::Cache,
+            :metastore => @cache_metastore,
+            :entitystore => @cache_entitystore,
+            :verbose => @cache_verbose
+          # Prime the HTTP cache with some common json-ld contexts used for
+          # IIIF and open annotations.
+          contexts = [
+            'http://iiif.io/api/image/1/context.json',
+            'http://iiif.io/api/image/2/context.json',
+            'http://iiif.io/api/presentation/1/context.json',
+            'http://iiif.io/api/presentation/2/context.json',
+            'http://www.shared-canvas.org/ns/context.json',
+            'http://www.w3.org/ns/oa-context-20130208.json',
+            'http://www.w3.org/ns/oa.jsonld'
+          ]
+          contexts.each {|c| RestClient.get c }
         end
       end
 
