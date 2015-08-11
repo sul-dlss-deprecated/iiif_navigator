@@ -20,7 +20,7 @@ config_keys.each {|k| ENV.delete k }
 require 'iiif_navigator'
 IIIF::Navigator.reset
 CONFIG = IIIF::Navigator.configuration
-CONFIG.cache_enabled = true
+CONFIG.cache_enabled = false
 
 require 'rspec'
 RSpec.configure do |config|

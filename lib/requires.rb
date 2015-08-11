@@ -4,8 +4,7 @@ Dotenv.load
 require 'pry'
 require 'pry-doc'
 
-# Using rest-client with options to enable
-# a client HTTP cache
+# Using rest-client with options to enable a client HTTP cache
 require 'rest-client'
 RestClient.proxy = ENV['http_proxy'] unless ENV['http_proxy'].nil?
 RestClient.proxy = ENV['HTTP_PROXY'] unless ENV['HTTP_PROXY'].nil?
@@ -17,7 +16,8 @@ require 'uuid'
 require 'linkeddata'
 require_relative 'rdf/vocab/sc.rb'
 
-# OpenAnnotationHarvest module (standalone module for includes)
+# Standalone module includes
+require_relative 'iiif/navigator/http_check'
 require_relative 'iiif/navigator/open_annotation_harvest'
 
 # iiif_navigator module

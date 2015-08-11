@@ -30,8 +30,8 @@ module IIIF
         @limit_openannos = ENV['ANNO_LIMIT_OPENANNOS'].to_i # 0 disables sampling
 
         # Persistence options (TODO: provide options for triple stores)
-        self.cache_enabled = env_boolean('RACK_CACHE_ENABLED')
-        self.redis_enabled = env_boolean('REDIS_ENABLED')
+        self.cache_enabled = env_boolean('ANNO_CACHE_ENABLED')
+        self.redis_enabled = env_boolean('ANNO_REDIS_ENABLED')
       end
 
       # Utility method for sampling annotation arrays, using either linear or
@@ -119,15 +119,14 @@ module IIIF
         if @cache_enabled
           require 'restclient/components'
           require 'rack/cache'
-          # RestClient.enable Rack::CommonLogger
           RestClient.enable Rack::CommonLogger, STDOUT
           # Enable the HTTP cache to store meta and entity data according
           # to the env config values or the defaults given here.  See
           # http://rtomayko.github.io/rack-cache/configuration for available options.
-          @cache_metastore = ENV['RACK_CACHE_METASTORE'] || 'file:tmp/cache/meta'
-          @cache_entitystore = ENV['RACK_CACHE_ENTITYSTORE'] || 'file:tmp/cache/body'
+          @cache_metastore = ENV['ANNO_CACHE_METASTORE'] || 'file:tmp/cache/meta'
+          @cache_entitystore = ENV['ANNO_CACHE_ENTITYSTORE'] || 'file:tmp/cache/body'
           require 'dalli' if ((@cache_metastore =~ /memcache/) || (@cache_entitystore =~ /memcache/))
-          @cache_verbose = env_boolean('RACK_CACHE_VERBOSE')
+          @cache_verbose = env_boolean('ANNO_CACHE_VERBOSE')
           RestClient.enable Rack::Cache,
             :metastore => @cache_metastore,
             :entitystore => @cache_entitystore,
@@ -144,6 +143,13 @@ module IIIF
             'http://www.w3.org/ns/oa.jsonld'
           ]
           contexts.each {|c| RestClient.get c }
+        else
+          if defined?(Rack::CommonLogger)
+            RestClient.disable Rack::CommonLogger
+          end
+          if defined?(Rack::Cache)
+            RestClient.disable Rack::Cache
+          end
         end
       end
 
