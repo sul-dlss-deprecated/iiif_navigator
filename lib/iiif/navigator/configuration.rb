@@ -73,7 +73,7 @@ module IIIF
       end
 
       def logger_init
-        log_file = ENV['ANNO_LOG_FILE'] || 'iiif_navigator.log'
+        log_file = ENV['ANNO_LOG_FILE'] || 'log/iiif_navigator.log'
         log_file = File.absolute_path log_file
         @log_file = log_file
         @log_path = File.dirname log_file
