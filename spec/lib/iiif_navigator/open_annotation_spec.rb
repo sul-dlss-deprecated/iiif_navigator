@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe IIIF::Navigator::OpenAnnotation do
+describe IIIF::Navigator::OpenAnnotation, :vcr do
 
   let(:g1) {
     IIIF::Navigator::OpenAnnotation.new RDF::Graph.new.from_ttl("
