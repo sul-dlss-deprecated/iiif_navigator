@@ -4,24 +4,9 @@ module IIIF
 
     class Resource
 
-      @@config = nil
+      include HTTPCheck
 
-      def self.http_head_request(url)
-        uri = nil
-        begin
-          response = RestClient.head(url)
-          uri = response.args[:url]
-        rescue
-          @@config.logger.error "RestClient.head failed for #{url}"
-          begin
-            response = RestClient.get(url)
-            uri = response.args[:url]
-          rescue
-            @@config.logger.error "RestClient.get failed for #{url}"
-          end
-        end
-        uri
-      end
+      @@config = nil
 
       attr_accessor :iri
 
@@ -31,7 +16,7 @@ module IIIF
         if uri =~ /\A#{URI::regexp}\z/
           uri = Addressable::URI.parse(uri.to_s) rescue nil
         end
-        raise 'invalid uri' unless uri.instance_of? Addressable::URI
+        raise ArgumentError, 'invalid uri' unless uri.instance_of? Addressable::URI
         @iri = uri
       end
 
