@@ -24,12 +24,14 @@ Gem::Specification.new do |spec|
   # RDF linked data
   spec.add_dependency 'addressable'
   spec.add_dependency 'linkeddata'
+
   # HTTP client and rack cache components
   spec.add_dependency 'rest-client'
   spec.add_dependency 'rest-client-components'
   spec.add_dependency 'rack-cache'
   # dalli is a memcached ruby client
   spec.add_dependency 'dalli'
+
   # Use pry for console and debug config
   spec.add_dependency 'pry'
   spec.add_dependency 'pry-doc'
@@ -48,13 +50,12 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock'
 
   git_files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  bin_files = %w(bin/console bin/ctags.rb bin/setup.sh bin/test.sh)
+  bin_files = %w(bin/console bin/ctags.rb bin/setup.sh bin/test.rb)
   dot_files = %w(.gitignore .travis.yml log/.gitignore)
 
   spec.files         = git_files - (bin_files + dot_files)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.bindir        = "exe"
   spec.require_paths = ["lib"]
 
 end
