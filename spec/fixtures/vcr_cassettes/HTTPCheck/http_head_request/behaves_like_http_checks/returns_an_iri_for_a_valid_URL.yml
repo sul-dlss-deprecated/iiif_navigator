@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: http://www.example.com/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Accept-Ranges:
+      - bytes
+      Cache-Control:
+      - max-age=604800
+      Content-Type:
+      - text/html
+      Date:
+      - Tue, 11 Aug 2015 22:45:40 GMT
+      Etag:
+      - '"359670651"'
+      Expires:
+      - Tue, 18 Aug 2015 22:45:40 GMT
+      Last-Modified:
+      - Fri, 09 Aug 2013 23:54:35 GMT
+      Server:
+      - ECS (cpm/F9D5)
+      X-Cache:
+      - HIT
+      X-Ec-Custom-Error:
+      - '1'
+      Content-Length:
+      - '1270'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 11 Aug 2015 22:45:40 GMT
+recorded_with: VCR 2.9.3

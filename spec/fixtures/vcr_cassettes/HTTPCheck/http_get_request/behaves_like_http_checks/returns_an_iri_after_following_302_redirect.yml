@@ -1,0 +1,146 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://jigsaw.w3.org/HTTP/300/302.html
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Date:
+      - Tue, 11 Aug 2015 22:45:44 GMT
+      Content-Length:
+      - '389'
+      Content-Type:
+      - text/html;charset=ISO-8859-1
+      Location:
+      - https://jigsaw.w3.org/HTTP/300/Overview.html
+      Server:
+      - Jigsaw/2.3.0-beta2
+      Strict-Transport-Security:
+      - max-age=15552015; includeSubDomains; preload
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: |-
+        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                       "http://www.w3.org/TR/html4/loose.dtd">
+        <html>
+        <head>
+         <title>Moved</title>
+        </head>
+        <body>
+        <P>This resources has moved, click on the link if your browser doesn't support automatic redirection<BR><A HREF="http://jigsaw.w3.org/HTTP/300/Overview.html">http://jigsaw.w3.org/HTTP/300/Overview.html</A></body>
+        </html>
+    http_version: 
+  recorded_at: Tue, 11 Aug 2015 22:45:44 GMT
+- request:
+    method: get
+    uri: https://jigsaw.w3.org/HTTP/300/Overview.html
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Cookie:
+      - ''
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 11 Aug 2015 22:45:44 GMT
+      Content-Length:
+      - '1651'
+      Content-Type:
+      - text/html
+      Etag:
+      - '"14u2rht:164ua3k6o"'
+      Last-Modified:
+      - Mon, 18 Jul 2011 09:47:18 GMT
+      Server:
+      - Jigsaw/2.3.0-beta2
+      Strict-Transport-Security:
+      - max-age=15552015; includeSubDomains; preload
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: |
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <title>Redirect test page</title>
+        </head>
+        <body bgcolor="white">
+        <p><a href=".."><img src="/icons/jigsaw" alt="Jigsaw" border="0"
+        width="212" height="49"></a><img src="/icons/jigpower.gif" width=
+        "94" height="52" alt="Jigsaw Powered !" border="0" align=
+        "right"></p>
+        <h1>Redirect test page</h1>
+        <h1>A set of HTTP/1.1 redirect codes</h1>
+        <hr>
+        <table border cellpadding="2">
+        <tr>
+        <td><a href="301.html">301 Moved Permanently</a></td>
+        <td>This links to a page that has moved permanently, your browser
+        should get back to this page after this link.</td>
+        </tr>
+        <tr>
+        <td><a href="302.html">302 Found</a></td>
+        <td>This links to a page that has moved permanently, your browser
+        should get back to this page after this link.<br>
+        <em>302 Found</em> is ambiguous, you may use 301 or 307
+        instead</td>
+        </tr>
+        <tr>
+        <td>
+        <form action="Go_303" method="post"><input type="hidden" name="foo"
+        value="bar"> <input type="submit" value="303 See Other"></form>
+        </td>
+        <td>This form will redirect you to another page that contains the
+        response to the request.</td>
+        </tr>
+        <tr>
+        <td><a href="307.html">307 Moved Temporarily</a></td>
+        <td>This links to a page that has moved temporarily, your browser
+        should get back to this page after this link. This response code is
+        not cachable, unless specified.</td>
+        </tr>
+        <tr>
+        <td>
+        <form action="Go_307" method="post"><input type="hidden" name="foo"
+        value="bar"> <input type="submit" value=
+        "Redirect to the 303 test"></form></td>
+        <td>This form will redirect a POST using 307 to the 303 test page.
+        If the UA redirect as a GET, an error will occur.</td>
+        response to the request.</td>
+        </tr>
+        </table>
+        </body>
+        </html>
+    http_version: 
+  recorded_at: Tue, 11 Aug 2015 22:45:44 GMT
+recorded_with: VCR 2.9.3

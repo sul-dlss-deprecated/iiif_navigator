@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://jigsaw.w3.org/HTTP/negbad
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 406
+      message: Not Acceptable
+    headers:
+      Date:
+      - Tue, 11 Aug 2015 22:45:45 GMT
+      Content-Length:
+      - '258'
+      Content-Type:
+      - text/html;charset=ISO-8859-1
+      Server:
+      - Jigsaw/2.3.0-beta2
+      Vary:
+      - Accept
+      Strict-Transport-Security:
+      - max-age=15552015; includeSubDomains; preload
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: |-
+        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                       "http://www.w3.org/TR/html4/loose.dtd">
+        <html>
+        <head>
+         <title>No acceptable</title>
+        </head>
+        <body>
+        <P>The resource cannot be served according to the headers sent</P></body>
+        </html>
+    http_version: 
+  recorded_at: Tue, 11 Aug 2015 22:45:45 GMT
+recorded_with: VCR 2.9.3

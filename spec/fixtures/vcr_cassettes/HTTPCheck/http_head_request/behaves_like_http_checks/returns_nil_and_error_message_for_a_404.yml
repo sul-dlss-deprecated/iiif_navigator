@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: http://www.google.com/missing.html
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - text/html; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      Date:
+      - Tue, 11 Aug 2015 22:56:05 GMT
+      Server:
+      - sffe
+      Content-Length:
+      - '1437'
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 11 Aug 2015 22:56:05 GMT
+recorded_with: VCR 2.9.3
