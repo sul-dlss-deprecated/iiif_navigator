@@ -4,6 +4,7 @@ require 'bundler/setup'
 
 require 'iiif_navigator'
 CONFIG = IIIF::Navigator.configuration
+CONFIG.cache_enabled = true
 
 
 # TODO: add CLI interface for arguments to modify:
@@ -41,12 +42,13 @@ end
 # -----------------------------------------------------------------------
 # Annotation tracking using a file
 
-anno_file = 'annotation_tracking.json'
-anno_tracker = IIIF::Navigator::AnnotationTracker.new(anno_file)
+# anno_file = 'annotation_tracking.json'
+# anno_tracker = IIIF::Navigator::AnnotationTracker.new(anno_file)
 
-puts "\nAnnotation archive:"
-anno_tracker.archive
-anno_tracker.save({})
+# puts "\nAnnotation archive:"
+# anno_tracker.archive
+# anno_tracker.save({})
+
 
 # -----------------------------------------------------------------------
 # Loading IIIF annotations from a collection
